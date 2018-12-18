@@ -1,4 +1,5 @@
 import urls
+import time
 import currency
 from selenium import webdriver
 from seleniumrequests import Firefox
@@ -14,22 +15,33 @@ class DukeCardController:
         options.set_headless(True)
         self.driver = Firefox(options=options)
 
-
-    # TODO use POST login
     def login(self, user, pw):
-        # navigate to login
+        # need to visit dukecard site first, some cookies we need
         self.driver.get(urls.LOGIN)
 
-        # fields
-        username = self.driver.find_element_by_id("j_username")
-        password = self.driver.find_element_by_id("j_password")
+        # make POST request to login - no CSRF protection??
+        return self.driver.request('POST', urls.LOGIN_POST, data={
+            "j_username": user, 
+            "j_password": pw,
+            "Submit": "",
+            "loginPageTime": int(time.time())
+            })
 
-        username.send_keys(user)
-        password.send_keys(pw)
 
-        # submit login credentials - assume MFA is done, or won't work
-        submitButton = self.driver.find_element_by_id("Submit") 
-        submitButton.click()
+    #def login(self, user, pw):
+    #    # navigate to login
+    #    self.driver.get(urls.LOGIN)
+
+    #    # fields
+    #    username = self.driver.find_element_by_id("j_username")
+    #    password = self.driver.find_element_by_id("j_password")
+
+    #    username.send_keys(user)
+    #    password.send_keys(pw)
+
+    #    # submit login credentials - assume MFA is done, or won't work
+    #    submitButton = self.driver.find_element_by_id("Submit") 
+    #    submitButton.click()
 
     # TODO implement
     def get_balance(currency_type):

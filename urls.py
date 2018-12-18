@@ -1,6 +1,8 @@
 # GET request to this url will redirect to login site
 LOGIN = "https://dukecard.duke.edu/mydukecard/"
 
+LOGIN_POST = "https://shib.oit.duke.edu/idp/authn/external"
+
 # site that lets us read flex/food balance
 BALANCE = "https://dco31.oit.duke.edu/mydukecard/"
 
