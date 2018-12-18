@@ -8,11 +8,14 @@ from bs4 import BeautifulSoup
 from selenium.webdriver.firefox.options import Options
 
 class DukeCardController:
+    # TODO give option to specify geckodriver path
     def __init__(self):
         options = Options()
         options.set_headless(True)
         self.driver = Firefox(options=options)
 
+
+    # TODO use POST login
     def login(self, user, pw):
         # navigate to login
         self.driver.get(urls.LOGIN)
@@ -27,6 +30,10 @@ class DukeCardController:
         # submit login credentials - assume MFA is done, or won't work
         submitButton = self.driver.find_element_by_id("Submit") 
         submitButton.click()
+
+    # TODO implement
+    def get_balance(currency_type):
+        return 0
 
     def add_balance(self, currency_type, amount):
         self.driver.get(urls.ADD_BALANCE_GET)
